@@ -2,11 +2,60 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.16" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.19" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="wahlins\Lägenheter - Wahlin Fastigheter.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wahlins\Lägenheter - Wahlin Fastigheter_files\alphyddev-7-280x170.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wahlins\Lägenheter - Wahlin Fastigheter_files\bundle.896ab53e.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wahlins\Lägenheter - Wahlin Fastigheter_files\bundle.896ab53e.js.ladda ned">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wahlins\Lägenheter - Wahlin Fastigheter_files\bundle.min.js.ladda ned">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wahlins\Lägenheter - Wahlin Fastigheter_files\Goran-perssonsv-4-334-280x170.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wahlins\Lägenheter - Wahlin Fastigheter_files\jquery-migrate.min.js.ladda ned">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wahlins\Lägenheter - Wahlin Fastigheter_files\jquery.js.ladda ned">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wahlins\Lägenheter - Wahlin Fastigheter_files\js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wahlins\Lägenheter - Wahlin Fastigheter_files\style.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wahlins\Lägenheter - Wahlin Fastigheter_files\sv.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wahlins\Lägenheter - Wahlin Fastigheter_files\uk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wahlins\Lägenheter - Wahlin Fastigheter_files\Ursvikprojekt3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wahlins\Lägenheter - Wahlin Fastigheter_files\wahlin-loggo.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
