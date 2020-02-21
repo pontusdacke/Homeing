@@ -5,12 +5,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace HomingProgram
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var url = "https://wahlinfastigheter.se/lediga-objekt/lagenheter/";
             var web = new HtmlWeb();
@@ -27,20 +28,21 @@ namespace HomingProgram
 
                 try
                 {
-                    if (!TryGetObjectNumbers(doc, out var objectNumbers) 
-                        || !TryGetObjectCount(doc, out var objectCount))
+                    if (!TryGetObjectNumbers(doc, out var objectNumbers))
                     {
                         Thread.Sleep(1000);
                         continue;
                     }
 
-                    // Istället för att öppna explorer om det finns en count, läs upp <lägenhetshistoriken> och avgör om det finns en lägenhet sökt idag med samma objektsnummer redan.
-
-                    if (int.TryParse(objectCount, out var count) && count > 0)
+                    var repository = new AppartmentHistoryRepository();
+                    var history = await repository.GetAppartmentHistory();
+                    if (objectNumbers.Any(on => !history.IsShownToday(on)))
                     {
-                        Console.WriteLine(DateTime.Now.ToString() + "- Startar hemsida. Antal sidor: " + count);
+                        Console.WriteLine(DateTime.Now.ToString() + "- Startar hemsida. Antal objekt: " + objectNumbers.Count);
+
+                        await repository.SaveAppartment(objectNumbers);
+
                         Process.Start("explorer.exe", url);
-                        Thread.Sleep(1000 * 60 * 30); // vänta 30 minuter
                     }
                 }
                 catch (Exception e)
@@ -50,28 +52,6 @@ namespace HomingProgram
                 }
 
                 Thread.Sleep(1000);
-            }
-        }
-
-        private static bool TryGetObjectCount(HtmlDocument doc, out string count)
-        {
-            try
-            {
-                count = doc.DocumentNode
-                        .Descendants()
-                        .Single(node => node.HasClass("ojects-term-list"))
-                        .Descendants("a")
-                        .Single(node => node.Attributes.Any(attribute => attribute.Name == "href" && attribute.Value == url))
-                        .Descendants()
-                        .Single(node => node.HasClass("total-article"))
-                        .InnerText;
-
-                return true;
-            }
-            catch
-            {
-                count = null;
-                return false;
             }
         }
 
