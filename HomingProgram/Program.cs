@@ -36,11 +36,12 @@ namespace HomingProgram
 
                     var repository = new AppartmentHistoryRepository();
                     var history = await repository.GetAppartmentHistory();
-                    if (objectNumbers.Any(on => !history.IsShownToday(on)))
+                    var newObjects = objectNumbers.Where(on => !history.IsShownToday(on)).ToList();
+                    if (newObjects.Any())
                     {
-                        Console.WriteLine(DateTime.Now.ToString() + "- Startar hemsida. Antal objekt: " + objectNumbers.Count);
+                        Console.WriteLine(DateTime.Now.ToString() + "- Startar hemsida. Antal nya objekt: " + newObjects.Count);
 
-                        await repository.SaveAppartment(objectNumbers);
+                        await repository.SaveAppartment(newObjects);
 
                         Process.Start("explorer.exe", url);
                     }
