@@ -48,7 +48,7 @@ namespace HomingProgram
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Kunde inte hämta antal. Tar en pausminut...");
+                    Console.WriteLine("Kunde inte hämta antal. Tar en pausminut..." + e.ToString());
                     Thread.Sleep(1000 * 60);
                 }
 

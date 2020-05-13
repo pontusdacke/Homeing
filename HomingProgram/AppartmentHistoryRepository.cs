@@ -14,12 +14,12 @@ namespace HomingProgram
 
         public async Task<AppartmentHistory> GetAppartmentHistory()
         {
-            if (!File.Exists(appartmentHistoryPath))
+            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + appartmentHistoryPath))
             {
                 return new AppartmentHistory();
             }
 
-            using (var stream = new FileStream(appartmentHistoryPath, FileMode.OpenOrCreate, FileAccess.Read))
+            using (var stream = new FileStream(AppDomain.CurrentDomain.BaseDirectory + appartmentHistoryPath, FileMode.OpenOrCreate, FileAccess.Read))
             {
                 return await JsonSerializer.DeserializeAsync<AppartmentHistory>(stream);
             }
@@ -49,7 +49,7 @@ namespace HomingProgram
 
             var json = JsonSerializer.Serialize(currentHistory);
 
-            await File.WriteAllTextAsync(appartmentHistoryPath, json, Encoding.UTF8);
+            await File.WriteAllTextAsync(AppDomain.CurrentDomain.BaseDirectory + appartmentHistoryPath, json, Encoding.UTF8);
         }
     }
 }
